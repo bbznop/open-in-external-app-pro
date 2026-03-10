@@ -6,3 +6,7 @@ node_modules
 # esbuild-visualizer
 meta.json
 stats.html
+
+# vibe coding
+.claude/
+.mcp/
