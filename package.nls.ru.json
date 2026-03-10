@@ -23,5 +23,9 @@
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.windows": "Дополнительные переменные окружения для shellCommand, для Windows",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.linux": "Дополнительные переменные окружения для shellCommand, для Linux",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.osx": "Дополнительные переменные окружения для shellCommand, для macOS",
-    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "Whether to convert WSL path to Windows path when running in WSL remote mode. Default is true (convert to Windows path for Windows applications). Set to false to keep WSL native path for WSL applications like evince"
+    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "Whether to convert WSL path to Windows path when running in WSL remote mode. Default is true (convert to Windows path for Windows applications). Set to false to keep WSL native path for WSL applications like evince",
+    "cfg.openInExternalApp.openMapper.item.apps.item.showInContextMenu": "Если true, это приложение будет отображаться непосредственно в контекстном меню. Требуется перезагрузка VS Code после изменения.",
+    "msg.contextMenu.reloadRequired": "Элементы контекстного меню обновлены. Перезагрузите VS Code для применения изменений.",
+    "msg.contextMenu.reload": "Перезагрузить",
+    "msg.contextMenu.appNotFound": "Приложение \"{0}\" больше не настроено. Пожалуйста, перезагрузите VS Code."
 }

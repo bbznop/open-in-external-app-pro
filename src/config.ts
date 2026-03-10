@@ -36,6 +36,7 @@ export function validateConfiguration(configuration: ExtensionConfigItem[]): joi
                                 }),
                             ),
                             wslConvertWindowsPath: joi.boolean(),
+                            showInContextMenu: joi.boolean(),
                         }),
                     ),
                 )

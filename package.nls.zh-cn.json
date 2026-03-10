@@ -23,5 +23,9 @@
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.windows": "Windows 平台的 shellCommand 额外环境变量",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.linux": "Linux 平台的 shellCommand 额外环境变量",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.osx": "macOS 平台的 shellCommand 额外环境变量",
-    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "在 WSL remote 模式下是否将 WSL 路径转换为 Windows 路径。默认为 true（转换为 Windows 路径，用于 Windows 应用）。设置为 false 可保持 WSL 原生路径，用于 WSL 应用（如 evince）"
+    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "在 WSL remote 模式下是否将 WSL 路径转换为 Windows 路径。默认为 true（转换为 Windows 路径，用于 Windows 应用）。设置为 false 可保持 WSL 原生路径，用于 WSL 应用（如 evince）",
+    "cfg.openInExternalApp.openMapper.item.apps.item.showInContextMenu": "设置为 true 时，此应用将直接显示在右键菜单中。修改后需要重新加载 VS Code。",
+    "msg.contextMenu.reloadRequired": "右键菜单项已更新，请重新加载 VS Code 以应用更改。",
+    "msg.contextMenu.reload": "重新加载",
+    "msg.contextMenu.appNotFound": "应用 \"{0}\" 已不在配置中，请重新加载 VS Code。"
 }

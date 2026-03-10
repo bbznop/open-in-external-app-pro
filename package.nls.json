@@ -23,5 +23,9 @@
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.windows": "Additional shellCommand environment variables for Windows",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.linux": "Additional shellCommand environment variables for Linux",
     "cfg.openInExternalApp.openMapper.item.apps.item.shellEnv.osx": "Additional shellCommand environment variables for macOS",
-    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "Whether to convert WSL path to Windows path when running in WSL remote mode. Default is true (convert to Windows path for Windows applications). Set to false to keep WSL native path for WSL applications like evince"
+    "cfg.openInExternalApp.openMapper.item.apps.item.wslConvertWindowsPath": "Whether to convert WSL path to Windows path when running in WSL remote mode. Default is true (convert to Windows path for Windows applications). Set to false to keep WSL native path for WSL applications like evince",
+    "cfg.openInExternalApp.openMapper.item.apps.item.showInContextMenu": "When true, this app will appear directly in the right-click context menu. Requires VS Code reload after changing.",
+    "msg.contextMenu.reloadRequired": "Context menu items have been updated. Reload VS Code to apply changes.",
+    "msg.contextMenu.reload": "Reload",
+    "msg.contextMenu.appNotFound": "App \"{0}\" is no longer configured. Please reload VS Code."
 }

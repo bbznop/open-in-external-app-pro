@@ -25,6 +25,13 @@ interface ExternalAppConfig {
      * @example false - Keep WSL native path for WSL applications like evince
      */
     wslConvertWindowsPath?: boolean;
+    /**
+     * When true, this app will appear directly in the right-click context menu
+     * instead of only in the quick pick submenu.
+     * Requires VS Code reload after changing.
+     * @default false
+     */
+    showInContextMenu?: boolean;
 }
 
 interface ExtensionConfigItem {
