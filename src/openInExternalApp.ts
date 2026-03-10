@@ -5,6 +5,7 @@ import vscode from 'vscode';
 import { localize } from 'vscode-nls-i18n';
 
 import getExtensionConfig from './config';
+import { isDirectory } from './utils/fs';
 import { logger } from './utils/logger';
 import { open } from './utils/open';
 import { getActiveFileUri } from './utils/uri';
@@ -33,6 +34,10 @@ function getConfigItemById(configuration: ExtensionConfigItem[], configItemId: s
 
 function getSharedConfigItem(configuration: ExtensionConfigItem[]) {
     return configuration.find((item) => item.extensionName === '__ALL__');
+}
+
+function getFolderConfigItem(configuration: ExtensionConfigItem[]) {
+    return configuration.find((item) => item.extensionName === '__FOLDER__');
 }
 
 async function openWithConfigItem(
@@ -108,15 +113,21 @@ export default async function openInExternalApp(
     // except for configured appConfig.isElectronApp option
     let matchedConfigItem: ExtensionConfigItem | undefined;
     const configuration = getExtensionConfig();
+    const isDir = await isDirectory(filePath);
     if (configItemId === undefined) {
-        const ext = extname(filePath);
-        const extensionName = ext === '' || ext === '.' ? null : ext.slice(1);
-        logger.info(`parsed extension name: ${extensionName}`);
-        if (extensionName) {
-            matchedConfigItem = getConfigItemByExtName(configuration, extensionName);
+        if (isDir) {
+            logger.info('target is a directory');
+            matchedConfigItem = getFolderConfigItem(configuration);
         } else {
-            // For files without extension, try to get fallback config (extensionName: "*")
-            matchedConfigItem = getFallbackConfigItem(configuration);
+            const ext = extname(filePath);
+            const extensionName = ext === '' || ext === '.' ? null : ext.slice(1);
+            logger.info(`parsed extension name: ${extensionName}`);
+            if (extensionName) {
+                matchedConfigItem = getConfigItemByExtName(configuration, extensionName);
+            } else {
+                // For files without extension, try to get fallback config (extensionName: "*")
+                matchedConfigItem = getFallbackConfigItem(configuration);
+            }
         }
     } else {
         matchedConfigItem = getConfigItemById(configuration, configItemId);

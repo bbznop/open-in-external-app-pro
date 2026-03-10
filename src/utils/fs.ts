@@ -7,3 +7,10 @@ export function pathExists(path: string) {
         .then(() => true)
         .catch(() => false);
 }
+
+export function isDirectory(path: string) {
+    return fs
+        .stat(path)
+        .then((stat) => stat.isDirectory())
+        .catch(() => false);
+}
