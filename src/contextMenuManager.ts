@@ -93,7 +93,24 @@ function extractDynamicEntries(config: ExtensionConfigItem[]): DynamicMenuEntry[
     return Array.from(entryMap.values());
 }
 
-function updatePackageJson(extensionPath: string, entries: DynamicMenuEntry[]): boolean {
+function collectAllExtensionNames(config: ExtensionConfigItem[]): string[] {
+    const allNames = new Set<string>();
+    for (const configItem of config) {
+        const { extensionName } = configItem;
+        if (Array.isArray(extensionName)) {
+            for (const n of extensionName) allNames.add(n);
+        } else {
+            allNames.add(extensionName);
+        }
+    }
+    return Array.from(allNames);
+}
+
+function updatePackageJson(
+    extensionPath: string,
+    entries: DynamicMenuEntry[],
+    config: ExtensionConfigItem[],
+): boolean {
     const packageJsonPath = join(extensionPath, 'package.json');
     const content = readFileSync(packageJsonPath, 'utf8');
     const packageJson = JSON.parse(content);
@@ -108,6 +125,29 @@ function updatePackageJson(extensionPath: string, entries: DynamicMenuEntry[]): 
     const staticEditorMenu = (packageJson.contributes.menus['editor/title/context'] || []).filter(
         (entry: any) => !(entry.command || '').startsWith(DYNAMIC_COMMAND_PREFIX),
     );
+
+    // Update when clause for the static "Open in External App" entries
+    const allExtNames = collectAllExtensionNames(config);
+    const staticExplorerWhen =
+        allExtNames.length > 0 ? generateWhenClause(allExtNames, false) : 'false';
+    const staticEditorWhen =
+        allExtNames.length > 0
+            ? generateWhenClause(
+                  allExtNames.filter((n) => n !== '__FOLDER__'),
+                  true,
+              )
+            : 'false';
+
+    for (const entry of staticExplorerMenu) {
+        if (entry.command === 'openInExternalApp.open') {
+            entry.when = staticExplorerWhen ?? 'false';
+        }
+    }
+    for (const entry of staticEditorMenu) {
+        if (entry.command === 'openInExternalApp.open') {
+            entry.when = staticEditorWhen ?? 'false';
+        }
+    }
 
     // Generate new dynamic entries
     const dynamicCommands = entries.map((entry) => ({
@@ -258,7 +298,7 @@ export async function syncContextMenu(context: vscode.ExtensionContext): Promise
     const entries = extractDynamicEntries(config);
 
     try {
-        const changed = updatePackageJson(context.extensionPath, entries);
+        const changed = updatePackageJson(context.extensionPath, entries, config);
         if (changed) {
             logger.info('package.json updated with new context menu entries');
             const reload = await vscode.window.showInformationMessage(
@@ -271,5 +311,6 @@ export async function syncContextMenu(context: vscode.ExtensionContext): Promise
         }
     } catch (error: any) {
         logger.info(`failed to update package.json for context menu: ${error.message}`);
+        vscode.window.showErrorMessage(`Failed to update context menu: ${error.message}`);
     }
 }

@@ -96,22 +96,73 @@
             {
                 "command": "openInExternalApp.openMultiple",
                 "title": "%cmd.openMultiple%"
+            },
+            {
+                "command": "openInExternalApp.contextMenu.Chrome",
+                "title": "Chrome"
+            },
+            {
+                "command": "openInExternalApp.contextMenu.Typora",
+                "title": "Typora"
+            },
+            {
+                "command": "openInExternalApp.contextMenu.Notepad",
+                "title": "Notepad"
+            },
+            {
+                "command": "openInExternalApp.contextMenu.Explorer",
+                "title": "Explorer"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
-                    "when": "isFileSystemResource",
+                    "when": "false",
                     "command": "openInExternalApp.open",
                     "alt": "openInExternalApp.openMultiple",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Chrome",
+                    "when": "isFileSystemResource && (resourceExtname == .html || resourceExtname == .htm)",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Typora",
+                    "when": "isFileSystemResource && resourceExtname == .md",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Notepad",
+                    "when": "isFileSystemResource && (resourceExtname == .css || resourceExtname == .json)",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Explorer",
+                    "when": "explorerResourceIsFolder",
                     "group": "navigation@10"
                 }
             ],
             "editor/title/context": [
                 {
-                    "when": "isFileSystemResource",
+                    "when": "false",
                     "command": "openInExternalApp.open",
                     "alt": "openInExternalApp.openMultiple",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Chrome",
+                    "when": "isFileSystemResource && (resourceExtname == .html || resourceExtname == .htm)",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Typora",
+                    "when": "isFileSystemResource && resourceExtname == .md",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Notepad",
+                    "when": "isFileSystemResource && (resourceExtname == .css || resourceExtname == .json)",
                     "group": "navigation@10"
                 }
             ]
