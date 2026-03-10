@@ -112,12 +112,16 @@
             {
                 "command": "openInExternalApp.contextMenu.Explorer",
                 "title": "Explorer"
+            },
+            {
+                "command": "openInExternalApp.contextMenu.Reveal_in_Explorer",
+                "title": "Reveal in Explorer"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
-                    "when": "false",
+                    "when": "isFileSystemResource",
                     "command": "openInExternalApp.open",
                     "alt": "openInExternalApp.openMultiple",
                     "group": "navigation@10"
@@ -141,11 +145,16 @@
                     "command": "openInExternalApp.contextMenu.Explorer",
                     "when": "explorerResourceIsFolder",
                     "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Reveal_in_Explorer",
+                    "when": "isFileSystemResource",
+                    "group": "navigation@10"
                 }
             ],
             "editor/title/context": [
                 {
-                    "when": "false",
+                    "when": "isFileSystemResource",
                     "command": "openInExternalApp.open",
                     "alt": "openInExternalApp.openMultiple",
                     "group": "navigation@10"
@@ -163,6 +172,11 @@
                 {
                     "command": "openInExternalApp.contextMenu.Notepad",
                     "when": "isFileSystemResource && (resourceExtname == .css || resourceExtname == .json)",
+                    "group": "navigation@10"
+                },
+                {
+                    "command": "openInExternalApp.contextMenu.Reveal_in_Explorer",
+                    "when": "isFileSystemResource",
                     "group": "navigation@10"
                 }
             ]

@@ -15,6 +15,11 @@ export function isObject(value: any) {
     return value !== null && typeof value === 'object';
 }
 
+function hasNonAscii(str: string): boolean {
+    // eslint-disable-next-line no-control-regex
+    return /[^\u0000-\u007F]/.test(str);
+}
+
 export const exec = promisify(_exec);
 
 function openByPkg(filePath: string, options?: OpenOptions) {
@@ -25,6 +30,11 @@ function openByPkg(filePath: string, options?: OpenOptions) {
 async function openByBuiltinApi(filePath: string) {
     logger.info('open file by vscode builtin api');
     // https://github.com/microsoft/vscode/issues/88273
+    // vscode.env.openExternal cannot handle non-ASCII (e.g. Chinese) paths
+    if (hasNonAscii(filePath)) {
+        logger.info('non-ASCII path detected, falling back to open package');
+        return openByPkg(filePath);
+    }
     return vscode.env.openExternal(Uri.file(filePath));
 }
 
@@ -56,7 +66,12 @@ export async function open(filePath: string, appConfig?: string | ExternalAppCon
             const parsedCommand = (
                 await parseVariables([appConfig.shellCommand!], Uri.file(convertedPath))
             )[0];
-            logger.info(`open file by shell command: "${parsedCommand}"`);
+            // On Windows, switch to UTF-8 code page for non-ASCII paths
+            const commandToExec =
+                isWindows && hasNonAscii(parsedCommand)
+                    ? `chcp 65001 >nul && ${parsedCommand}`
+                    : parsedCommand;
+            logger.info(`open file by shell command: "${commandToExec}"`);
             try {
                 if (appConfig.shellEnv) {
                     const shellEnv = getShellEnv();
@@ -74,9 +89,9 @@ export async function open(filePath: string, appConfig?: string | ExternalAppCon
 
                     await mergeEnvironments(shellEnv, additionalEnv, Uri.file(convertedPath));
                     const options: ExecOptions = { env: shellEnv };
-                    await exec(parsedCommand, options);
+                    await exec(commandToExec, options);
                 } else {
-                    await exec(parsedCommand);
+                    await exec(commandToExec);
                 }
             } catch (error: any) {
                 vscode.window.showErrorMessage(
