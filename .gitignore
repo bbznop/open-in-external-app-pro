@@ -7,6 +7,9 @@ node_modules
 meta.json
 stats.html
 
+# test workspace settings
+test-workspace/.vscode/
+
 # vibe coding
 .claude/
 .mcp/
