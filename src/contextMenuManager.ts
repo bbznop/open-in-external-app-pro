@@ -93,10 +93,22 @@ function extractDynamicEntries(config: ExtensionConfigItem[]): DynamicMenuEntry[
     return Array.from(entryMap.values());
 }
 
-function collectAllExtensionNames(config: ExtensionConfigItem[]): string[] {
+function collectExtensionNamesForStaticMenu(config: ExtensionConfigItem[]): string[] {
     const allNames = new Set<string>();
     for (const configItem of config) {
-        const { extensionName } = configItem;
+        const { extensionName, apps } = configItem;
+
+        // Only include extension names where at least one app is NOT shown in context menu,
+        // meaning it still needs the "Open in External App" quick pick to be accessible.
+        let hasNonContextMenuApp = false;
+        if (typeof apps === 'string') {
+            hasNonContextMenuApp = true;
+        } else if (Array.isArray(apps)) {
+            hasNonContextMenuApp = apps.some((app) => !app.showInContextMenu);
+        }
+
+        if (!hasNonContextMenuApp) continue;
+
         if (Array.isArray(extensionName)) {
             for (const n of extensionName) allNames.add(n);
         } else {
@@ -127,7 +139,7 @@ function updatePackageJson(
     );
 
     // Update when clause for the static "Open in External App" entries
-    const allExtNames = collectAllExtensionNames(config);
+    const allExtNames = collectExtensionNamesForStaticMenu(config);
     const staticExplorerWhen =
         allExtNames.length > 0 ? generateWhenClause(allExtNames, false) : 'false';
     const staticEditorWhen =
