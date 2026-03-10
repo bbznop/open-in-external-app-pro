@@ -1,14 +1,13 @@
 {
-    "name": "open-in-external-app",
-    "displayName": "Open in External App",
-    "version": "0.11.2",
-    "description": "Open file with external application in VSCode",
-    "publisher": "YuTengjing",
+    "name": "open-in-external-app-pro",
+    "displayName": "Open in External App Pro",
+    "version": "1.0.0",
+    "description": "Open file with external application in VSCode, with context menu support",
+    "publisher": "bbznop",
     "packageManager": "pnpm@8.15.9",
     "author": {
-        "name": "YuTengjing",
-        "url": "https://github.com/tjx666",
-        "email": "ytj2713151713@gmail.com"
+        "name": "bbznop",
+        "url": "https://github.com/bbznop"
     },
     "icon": "images/logo.png",
     "license": "SEE LICENSE IN LICENSE",
@@ -16,22 +15,21 @@
         {
             "url": "https://img.shields.io/badge/License-MIT-brightgreen.svg",
             "description": "License: MIT",
-            "href": "https://github.com/tjx666/open-in-external-app/blob/master/LICENSE"
+            "href": "https://github.com/bbznop/open-in-external-app-pro/blob/main/LICENSE"
         },
         {
             "url": "https://img.shields.io/badge/PRs-welcome-brightgreen.svg",
             "description": "PRs Welcome",
-            "href": "https://github.com/tjx666/open-in-external-app"
+            "href": "https://github.com/bbznop/open-in-external-app-pro"
         }
     ],
-    "homepage": "https://github.com/tjx666/open-in-external-app/blob/master/README.md",
+    "homepage": "https://github.com/bbznop/open-in-external-app-pro/blob/main/README.md",
     "bugs": {
-        "url": "https://github.com/tjx666/open-in-external-app/issues",
-        "email": "ytj2713151713@gmail.com"
+        "url": "https://github.com/bbznop/open-in-external-app-pro/issues"
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/tjx666/open-in-external-app"
+        "url": "https://github.com/bbznop/open-in-external-app-pro"
     },
     "engines": {
         "vscode": "^1.80.0"
